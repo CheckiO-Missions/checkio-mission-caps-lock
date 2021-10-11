@@ -1,0 +1,34 @@
+<!-- Describe task in general -->
+
+<p>
+	Джо Палука обладает такими толстыми пальцами, что всегда задевает клавишу “Caps Lock” когда пытается нажать кнопку “a”. (Правда когда Джо пытается напечатать заглавную версию “a”, требующую нажатия нескольких клавиш, он более внимателен, и всегда жмет [Shift] + [a] правильно). Ваша программа должна вернуть то, что получится у Джо при наборе переданного текста. “Caps Lock” влияет только на кнопки от “a” до “z”, и не оказывает эффекта на другие клавиши. Перед набором текст “Caps Lock” выключен.
+</p>
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Входные данные: </strong> Строка. Текст, который печатает Джо.
+</p>
+
+<p>
+    <strong>Выходные данные: </strong> Строка. Текст, который получится у Джо после набора.
+</p>
+
+
+<!-- Put some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Примеры:</strong>
+    </p>
+
+{% if interpreter.slug == "js-node" %}
+<pre class="brush: javascript">capsLock('Why are you asking me that?') == 'Why RE YOU sking me thT?'
+capsLock('Always wanted to visit Zambia.') == 'AlwYS Wnted to visit ZMBI.'
+</pre>
+{% else %}
+<pre class="brush: python">caps_lock("Why are you asking me that?") == "Why RE YOU sking me thT?"
+caps_lock("Madder than Mad Brian of Madcastle") == "MDDER THn MD BRIn of MDCstle"
+</pre>
+{% endif %}
+</div>
+
+<p><i>Миссия позаимствована на Python CCPS 109 Осень 2018. Она преподается <a href="http://www.scs.ryerson.ca/~ikokkari/">Илккой Коккаринен</a> в Школе непрерывного образования Раймонда Чанга</i></p>
