@@ -11,6 +11,7 @@ console.log(capsLock('Why are you asking me that?'));
 // These "asserts" are used for self-checking
 assert.equal(capsLock('Why are you asking me that?'), 'Why RE YOU sking me thT?');
 assert.equal(capsLock('Always wanted to visit Zambia.'), 'AlwYS Wnted to visit ZMBI.');
+assert.equal(capsLock('Aloha from Hawaii'), 'Aloh FROM HwII');
 
 console.log("Coding complete? Click 'Check' to earn cool rewards!");
     

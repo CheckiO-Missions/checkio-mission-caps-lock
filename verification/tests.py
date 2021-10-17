@@ -17,6 +17,10 @@ TESTS = {
         {
             "input": ["Always wanted to visit Zambia."],
             "answer": "AlwYS Wnted to visit ZMBI."
+        },
+        {
+            "input": ["Aloha from Hawaii"],
+            "answer": "Aloh FROM HwII"
         }
     ],
     "Extra": [
