@@ -8,31 +8,21 @@
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input: </strong> A string. The typed text.
+    <strong>Input:</strong> A string. The typed text.
 </p>
 
 <p>
-    <strong>Output: </strong> A string. The showed text after being typed.
+    <strong>Output:</strong> A string. The showed text after being typed.
 </p>
 
 
 <!-- Put some usage examples -->
 <div class="for_info_only">
     <p>
-        <strong>Example:</strong>
+        <strong>Examples:</strong>
     </p>
 
-{% if interpreter.slug == "js-node" %}
-<pre class="brush: javascript">capsLock('Why are you asking me that?') == 'Why RE YOU sking me thT?'
-capsLock('Always wanted to visit Zambia.') == 'AlwYS Wnted to visit ZMBI.'
-capsLock('Aloha from Hawaii') == 'Aloh FROM HwII'
-</pre>
-{% else %}
-<pre class="brush: python">caps_lock("Why are you asking me that?") == "Why RE YOU sking me thT?"
-caps_lock("Madder than Mad Brian of Madcastle") == "MDDER THn MD BRIn of MDCstle"
-caps_lock("Aloha from Hawaii") == "Aloh FROM HwII"
-</pre>
-{% endif %}
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
 
 <p><i>The mission was taken from Python CCPS 109 Fall 2018. It is taught for Ryerson Chang School of Continuing Education by <a href="http://www.scs.ryerson.ca/~ikokkari/">Ilkka Kokkarinen</a></i></p>

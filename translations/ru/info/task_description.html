@@ -22,17 +22,7 @@
         <strong>Примеры:</strong>
     </p>
 
-{% if interpreter.slug == "js-node" %}
-<pre class="brush: javascript">capsLock('Why are you asking me that?') == 'Why RE YOU sking me thT?'
-capsLock('Always wanted to visit Zambia.') == 'AlwYS Wnted to visit ZMBI.'
-capsLock('Aloha from Hawaii') == 'Aloh FROM HwII'
-</pre>
-{% else %}
-<pre class="brush: python">caps_lock("Why are you asking me that?") == "Why RE YOU sking me thT?"
-caps_lock("Madder than Mad Brian of Madcastle") == "MDDER THn MD BRIn of MDCstle"
-caps_lock("Aloha from Hawaii") == "Aloh FROM HwII"
-</pre>
-{% endif %}
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
 
 <p><i>Миссия позаимствована на Python CCPS 109 Осень 2018. Она преподается <a href="http://www.scs.ryerson.ca/~ikokkari/">Илккой Коккаринен</a> в Школе непрерывного образования Раймонда Чанга</i></p>

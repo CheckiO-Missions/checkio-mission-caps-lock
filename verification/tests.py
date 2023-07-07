@@ -21,7 +21,7 @@ TESTS = {
         {
             "input": ["Aloha from Hawaii"],
             "answer": "Aloh FROM HwII"
-        }
+        },
     ],
     "Extra": [
         {
@@ -35,6 +35,6 @@ TESTS = {
         {
             "input": ["ababababab"],
             "answer": "BbBbB"
-        }        
+        },        
     ]
 }
