@@ -1,0 +1,143 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        I have no idea how to start solving this mission.
+    </div>
+    <div class="answer">
+        <p>
+            Catch an idea 💡! Split the text into parts by lower "a", make parts with odd index uppercase and join all parts together.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, sounds easy, but what should I start from?
+    </div>
+    <div class="answer">
+        <p>
+            Pressing lower "a" changes the case of the block of characters until the next "a". These lower "a" are not printed. Knowing this, you may split the given text into separate blocks of letters by lower "a" without keeping this "a"-s. The perfect tool for this is <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">str.split()</a> method with separator <b class="code">"a"</b>.  
+        </p>
+        <pre class="brush: python">
+... text.split("a")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        What to do next?
+    </div>
+    <div class="answer">
+        <p>
+            For further operations you need to iterate over the sequence of text blocks, getting their indexes and blocks themselves. Do the iteration with <b class="code">for</b> loop and <a target="_blank" href="https://www.w3schools.com/python/ref_func_enumerate.asp">enumerate()</a> function.
+        </p>
+        <pre class="brush: python">
+... for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        How to make operation with a block based on its index? 
+    </div>
+    <div class="answer">
+        <p>
+            Let's see. The text is typed with <b class="code">caps lock</b> off until the first "a". So the first block of text (remember about 0-based indexing) needs no changes. After activating <b class="code">caps lock</b>, the next block of text must be in uppercase, then again a block without changes etc.
+        </p>
+        <p>
+            If the index of text block is odd, it must be in uppercase. How to make it? Use <a target="_blank" href="https://realpython.com/python-modulo-operator/">modulo operator</a> to distinguish even indexes from odd by dividing them by 2. Use <a target="_blank" href="https://www.w3schools.com/python/ref_string_upper.asp">str.upper()</a> method to convert text blocks with odd indexes.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] ...
+        </pre>
+        <p>
+            Here we use a reminder of modulo division index and 2 as index of tuple with initial and changed blocks of text.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Cool! Help me to join it all back together.
+    </div>
+    <div class="answer">
+        <p>
+            You said all you need. Use the above list comprehension as argument of <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> method with empty line separator.
+        </p>
+        <pre class="brush: python">
+"".join(...)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        So, how my final solution should look like?
+    </div>
+    <div class="answer">
+        <p>
+            You just need to wrap your code into function expression. Using type hints for input and output data are highly recommended.
+        </p>
+        <p>Here is the whole solution:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    return "".join((v, v.upper())[i % 2] for i, v in enumerate(text.split("a")))
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Show me more solutions!<br />
+        'Cause I wanna be a real 🥇 Python Ninnjaa!
+    </div>
+    <div class="answer">
+        <p>Sure, grab it!</p>
+        <p>
+            In this solution a generator iterates over the given text and yields initial or uppercase character depending of the flag value. The flag value changes each time when "a" is met.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    def characters():
+
+        caps = False
+        for char in text:
+            if char == 'a':
+                caps = not caps
+            else: 
+                yield char.upper() if caps else char
+
+    return ''.join(characters())
+        </pre>
+        </div>
+        <p>
+            Split the text and get a list of text blocks. Convert every second element of the list into uppercase. Join all together.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    result = text.split("a")
+    
+    for x in range(1, len(result), 2):
+        result[x] = result[x].upper()
+        
+    return "".join(result)
+        </pre>
+        </div>
+        <p>Click <b>Best Solutions</b> at mission menu and see a lot of other interesting solutions!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Thanks! I know and understand more now! Everything works fine!
+    </div>
+    <div class="answer">
+        Glad to hear it 👍!
+    </div>
+</div>
+</body>
