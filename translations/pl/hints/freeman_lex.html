@@ -1,0 +1,143 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Nie mam pojęcia, jak zacząć rozwiązywać tę misję.
+    </div>
+    <div class="answer">
+        <p>
+            Proszę złapać pomysł 💡! Proszę podzielić tekst na części przez małe "a", zrobić części z nieparzystym indeksem wielkimi literami i połączyć wszystkie części razem.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, brzmi łatwo, ale od czego powinienem zacząć?
+    </div>
+    <div class="answer">
+        <p>
+            Naciśnięcie dolnego "a" zmienia wielkość liter bloku znaków do następnego "a". Te małe "a" nie są drukowane. Wiedząc o tym, można podzielić dany tekst na oddzielne bloki liter za pomocą dolnego "a" bez zachowywania tego "a". Doskonałym narzędziem do tego jest metoda <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">str.split()</a> z separatorem <b class="code">"a"</b>.  
+        </p>
+        <pre class="brush: python">
+... text.split("a")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Co robić dalej?
+    </div>
+    <div class="answer">
+        <p>
+            W celu wykonania dalszych operacji należy wykonać iterację po sekwencji bloków tekstu, uzyskując ich indeksy i same bloki. Proszę wykonać iterację za pomocą pętli <b class="code">for</b> i funkcji <a target="_blank" href="https://www.w3schools.com/python/ref_func_enumerate.asp">enumerate()</a>.
+        </p>
+        <pre class="brush: python">
+... for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak wykonać operację na bloku na podstawie jego indeksu? 
+    </div>
+    <div class="answer">
+        <p>
+            Proszę zobaczyć. Tekst jest wpisywany z wyłączonym <b class="code">caps lock</b> aż do pierwszego "a". Tak więc pierwszy blok tekstu (proszę pamiętać o indeksowaniu opartym na 0) nie wymaga żadnych zmian. Po włączeniu <b class="code">caps lock</b>, następny blok tekstu musi być pisany wielkimi literami, potem znowu blok bez zmian itd.
+        </p>
+        <p>
+            Jeśli indeks bloku tekstu jest nieparzysty, musi on być pisany wielkimi literami. Jak to zrobić? Proszę użyć <a target="_blank" href="https://realpython.com/python-modulo-operator/">modulo operator</a>, aby odróżnić indeksy parzyste od nieparzystych, dzieląc je przez 2. Proszę użyć metody <a target="_blank" href="https://www.w3schools.com/python/ref_string_upper.asp">str.upper()</a>, aby przekonwertować bloki tekstu z indeksami nieparzystymi.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] ...
+        </pre>
+        <p>
+            Tutaj używamy przypomnienia indeksu dzielenia modulo i 2 jako indeksu krotki z początkowymi i zmienionymi blokami tekstu.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Super! Proszę mi pomóc połączyć to wszystko z powrotem.
+    </div>
+    <div class="answer">
+        <p>
+            Powiedział Pan wszystko, czego potrzeba. Proszę użyć powyższej listy jako argumentu metody <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> z pustym separatorem linii.
+        </p>
+        <pre class="brush: python">
+"".join(...)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak więc powinno wyglądać moje ostateczne rozwiązanie?
+    </div>
+    <div class="answer">
+        <p>
+            Proszę tylko opakować swój kod w wyrażenie funkcyjne. Zaleca się używanie podpowiedzi typu dla danych wejściowych i wyjściowych.
+        </p>
+        <p>Oto całe rozwiązanie:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    return "".join((v, v.upper())[i % 2] for i, v in enumerate(text.split("a")))
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Proszę pokazać mi więcej rozwiązań!<br />
+        bo chcę być prawdziwą 🥇 Python Ninnjaa!
+    </div>
+    <div class="answer">
+        <p>Jasne, proszę łapać!</p>
+        <p>
+            W tym rozwiązaniu generator iteruje po podanym tekście i daje początkowe lub wielkie litery w zależności od wartości flagi. Wartość flagi zmienia się za każdym razem, gdy "a" zostanie spełnione.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    def characters():
+
+        caps = False
+        for char in text:
+            if char == 'a':
+                caps = not caps
+            else: 
+                yield char.upper() if caps else char
+
+    return ''.join(characters())
+        </pre>
+        </div>
+        <p>
+            Proszę podzielić tekst i otrzymać listę bloków tekstu. Proszę przekonwertować co drugi element listy na wielkie litery. Proszę połączyć wszystkie elementy.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    result = text.split("a")
+    
+    for x in range(1, len(result), 2):
+        result[x] = result[x].upper()
+        
+    return "".join(result)
+        </pre>
+        </div>
+        <p>Proszę kliknąć <b>Best Solutions</b> w menu misji i zobaczyć wiele innych ciekawych rozwiązań!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Dzięki! Teraz wiem i rozumiem więcej! Wszystko działa jak należy!
+    </div>
+    <div class="answer">
+        Miło mi to słyszeć 👍!
+    </div>
+</div>
+</body>
