@@ -1,0 +1,143 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        我不知道如何开始解决这项任务。
+    </div>
+    <div class="answer">
+        <p>
+            给你个建议💡！用小写 "a "分割文本，将奇数索引的部分大写，然后将所有部分连接在一起。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        好的，听起来很简单，但是我应该从哪里开始呢？
+    </div>
+    <div class="answer">
+        <p>
+            按下小写字母 "a "会改变字符块的大小写，直到下一个 "a"。这些小 "a "不会被打印出来。了解了这一点，您就可以在不保留 "a "的情况下，通过小写 "a "将给定文本分割成不同的字母块。实现这一点的最佳工具是带有分隔符的<a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">str.split()</a> 方法<b class="code">"a"</b> 。  
+        </p>
+        <pre class="brush: python">
+... text.split("a")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        下一步做什么？
+    </div>
+    <div class="answer">
+        <p>
+            为了进一步操作，您需要遍历文本块序列，获取它们的索引和块本身。使用<b class="code">for</b> loop 和<a target="_blank" href="https://www.w3schools.com/python/ref_func_enumerate.asp">enumerate()</a> 函数进行迭代。
+        </p>
+        <pre class="brush: python">
+... for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        如何根据索引对文本块进行操作？ 
+    </div>
+    <div class="answer">
+        <p>
+            让我们来看看。在输入第一个 "a "之前，<b class="code">caps lock</b> 。因此第一个文本块（记住基于0的索引）不需要更改。激活<b class="code">caps lock</b> 后，下一个文本块必须是大写字母，然后又是一个没有更改的文本块，等等。
+        </p>
+        <p>
+            如果文本块的索引为奇数，则必须为大写。如何实现？使用<a target="_blank" href="https://realpython.com/python-modulo-operator/">modulo operator</a> ，通过除以2来区分偶数索引和奇数索引。使用<a target="_blank" href="https://www.w3schools.com/python/ref_string_upper.asp">str.upper()</a> 方法转换奇数索引的文本块。
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] ...
+        </pre>
+        <p>
+            在这里，我们使用模数除法索引和2作为初始和更改文本块元组索引的提醒。
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        酷！帮我把它们连接起来。
+    </div>
+    <div class="answer">
+        <p>
+            您说的都是您需要的。使用上述列表理解作为<a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> 方法的参数，空行分隔符。
+        </p>
+        <pre class="brush: python">
+"".join(...)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        那么，我的最终解决方案应该是怎样的？
+    </div>
+    <div class="answer">
+        <p>
+            您只需将代码封装为函数表达式。强烈建议对输入和输出数据使用类型提示。
+        </p>
+        <p>以下是整个解决方案：</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    return "".join((v, v.upper())[i % 2] for i, v in enumerate(text.split("a")))
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        告诉我更多的解决方案！<br />
+        因为我想成为一个真正的 🥇 Python Ninnjaa！
+    </div>
+    <div class="answer">
+        <p>当然，抓住它！</p>
+        <p>
+            在此解决方案中，生成器对给定文本进行迭代，并根据标志值生成首字母或大写字符。每次遇到 "a "时，标志值都会改变。
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    def characters():
+
+        caps = False
+        for char in text:
+            if char == 'a':
+                caps = not caps
+            else: 
+                yield char.upper() if caps else char
+
+    return ''.join(characters())
+        </pre>
+        </div>
+        <p>
+            分割文本，得到文本块列表。将列表中的每第二个元素转换为大写字母。将所有元素连接在一起。
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    result = text.split("a")
+    
+    for x in range(1, len(result), 2):
+        result[x] = result[x].upper()
+        
+    return "".join(result)
+        </pre>
+        </div>
+        <p>点击任务菜单<b>Best Solutions</b> ，查看更多有趣的解决方案！</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        谢谢！我现在知道并理解了更多！一切正常！
+    </div>
+    <div class="answer">
+        很高兴听到这个消息👍！
+    </div>
+</div>
+</body>
