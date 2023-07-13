@@ -1,0 +1,143 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Je n'ai aucune idée de la manière de commencer à résoudre cette mission.
+    </div>
+    <div class="answer">
+        <p>
+            Trouvez une idée 💡! Divisez le texte en parties par "a" minuscule, mettez les parties avec un indice impair en majuscules et joignez toutes les parties ensemble.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, ça a l'air facile, mais par quoi dois-je commencer?
+    </div>
+    <div class="answer">
+        <p>
+            En appuyant sur le "a" minuscule, vous changez la casse du bloc de caractères jusqu'au "a" suivant. Ces "a" minuscules ne sont pas imprimés. Sachant cela, vous pouvez diviser le texte donné en blocs de lettres distincts en appuyant sur le "a" minuscule sans conserver ce "a". L'outil idéal pour cela est la méthode <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">str.split()</a> avec le séparateur <b class="code">"a"</b>.  
+        </p>
+        <pre class="brush: python">
+... text.split("a")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Que faire ensuite?
+    </div>
+    <div class="answer">
+        <p>
+            Pour les opérations suivantes, vous devez itérer sur la séquence de blocs de texte, en obtenant leurs index et les blocs eux-mêmes. Effectuez l'itération à l'aide de la boucle <b class="code">for</b> et de la fonction <a target="_blank" href="https://www.w3schools.com/python/ref_func_enumerate.asp">enumerate()</a>.
+        </p>
+        <pre class="brush: python">
+... for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Comment effectuer une opération sur un bloc en fonction de son index? 
+    </div>
+    <div class="answer">
+        <p>
+            Voyons ce qu'il en est. Le texte est tapé avec <b class="code">caps lock</b> désactivé jusqu'au premier "a". Le premier bloc de texte (souvenez-vous de l'indexation basée sur 0) n'a donc pas besoin d'être modifié. Après avoir activé <b class="code">caps lock</b>, le bloc de texte suivant doit être en majuscules, puis à nouveau un bloc sans changement, etc.
+        </p>
+        <p>
+            Si l'index du bloc de texte est impair, il doit être en majuscules. Comment faire? Utilisez <a target="_blank" href="https://realpython.com/python-modulo-operator/">modulo operator</a> pour distinguer les index pairs des index impairs en les divisant par 2. Utilisez la méthode <a target="_blank" href="https://www.w3schools.com/python/ref_string_upper.asp">str.upper()</a> pour convertir les blocs de texte dont l'index est impair.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] ...
+        </pre>
+        <p>
+            Ici, nous utilisons un rappel de l'indice de division modulo et 2 comme indice du tuple avec les blocs de texte initiaux et modifiés.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Cool! Aidez-moi à recoller les morceaux.
+    </div>
+    <div class="answer">
+        <p>
+            Vous avez dit tout ce dont vous aviez besoin. Utilisez la liste de compréhension ci-dessus comme argument de la méthode <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> avec un séparateur de ligne vide.
+        </p>
+        <pre class="brush: python">
+"".join(...)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Alors, à quoi devrait ressembler ma solution finale?
+    </div>
+    <div class="answer">
+        <p>
+            Il vous suffit d'envelopper votre code dans une expression de fonction. Il est fortement recommandé d'utiliser des indications de type pour les données d'entrée et de sortie.
+        </p>
+        <p>Voici la solution complète:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    return "".join((v, v.upper())[i % 2] for i, v in enumerate(text.split("a")))
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Montrez-moi d'autres solutions!<br />
+        parce que je veux être une vraie 🥇 Python Ninnjaa!
+    </div>
+    <div class="answer">
+        <p>Bien sûr, prenez-le!</p>
+        <p>
+            Dans cette solution, un générateur itère sur le texte donné et produit un caractère initial ou majuscule en fonction de la valeur du drapeau. La valeur de l'indicateur change à chaque fois que "a" est rencontré.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    def characters():
+
+        caps = False
+        for char in text:
+            if char == 'a':
+                caps = not caps
+            else: 
+                yield char.upper() if caps else char
+
+    return ''.join(characters())
+        </pre>
+        </div>
+        <p>
+            Divisez le texte et obtenez une liste de blocs de texte. Convertissez un élément sur deux de la liste en majuscules. Réunissez tous les éléments.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    result = text.split("a")
+    
+    for x in range(1, len(result), 2):
+        result[x] = result[x].upper()
+        
+    return "".join(result)
+        </pre>
+        </div>
+        <p>Cliquez sur <b>Best Solutions</b> dans le menu mission et découvrez de nombreuses autres solutions intéressantes!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Merci beaucoup! J'en sais plus et je comprends mieux maintenant! Tout fonctionne bien!
+    </div>
+    <div class="answer">
+        Heureux de l'apprendre 👍!
+    </div>
+</div>
+</body>
