@@ -1,0 +1,143 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Ich habe keine Ahnung, wie ich mit der Lösung dieser Aufgabe beginnen soll.
+    </div>
+    <div class="answer">
+        <p>
+            Haben Sie eine Idee 💡! Teilen Sie den Text in Teile mit kleinem "a" auf, machen Sie Teile mit ungeradem Index zu Großbuchstaben und fügen Sie alle Teile zusammen.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, das klingt einfach, aber womit soll ich anfangen?
+    </div>
+    <div class="answer">
+        <p>
+            Wenn Sie das kleine "a" drücken, ändert sich die Großschreibung des Zeichenblocks bis zum nächsten "a". Diese kleinen "a" werden nicht gedruckt. Wenn Sie dies wissen, können Sie den gegebenen Text durch ein kleines "a" in einzelne Buchstabenblöcke aufteilen, ohne dass diese "a "s erhalten bleiben. Das perfekte Werkzeug dafür ist die Methode <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">str.split()</a> mit dem Trennzeichen <b class="code">"a"</b>.  
+        </p>
+        <pre class="brush: python">
+... text.split("a")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Was ist als nächstes zu tun?
+    </div>
+    <div class="answer">
+        <p>
+            Für weitere Operationen müssen Sie über die Abfolge der Textblöcke iterieren, um deren Indizes und die Blöcke selbst zu erhalten. Führen Sie die Iteration mit der <b class="code">for</b> Schleife und der Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_enumerate.asp">enumerate()</a> durch.
+        </p>
+        <pre class="brush: python">
+... for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie führt man Operationen mit einem Block auf der Grundlage seines Indexes durch? 
+    </div>
+    <div class="answer">
+        <p>
+            Schauen wir mal. Der Text wird mit <b class="code">caps lock</b> bis zum ersten "a" eingegeben. Der erste Textblock (denken Sie an die 0-basierte Indizierung) muss also nicht geändert werden. Nachdem Sie <b class="code">caps lock</b> aktiviert haben, muss der nächste Textblock in Großbuchstaben geschrieben werden, dann wieder ein Block ohne Änderungen usw.
+        </p>
+        <p>
+            Wenn der Index des Textblocks ungerade ist, muss er in Großbuchstaben sein. Wie macht man das? Verwenden Sie <a target="_blank" href="https://realpython.com/python-modulo-operator/">modulo operator</a>, um gerade Indizes von ungeraden zu unterscheiden, indem Sie sie durch 2 teilen. Verwenden Sie <a target="_blank" href="https://www.w3schools.com/python/ref_string_upper.asp">str.upper()</a>, um Textblöcke mit ungeraden Indizes zu konvertieren.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] ...
+        </pre>
+        <p>
+            Hier verwenden wir eine Erinnerung an den Modulo-Divisionsindex und 2 als Index des Tupels mit den ursprünglichen und geänderten Textblöcken.
+        </p>
+        <pre class="brush: python">
+(v, v.upper())[i % 2] for i, v in enumerate(text.split("a"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Super! Helfen Sie mir, das Ganze wieder zusammenzufügen.
+    </div>
+    <div class="answer">
+        <p>
+            Sie haben alles gesagt, was Sie brauchen. Verwenden Sie das obige Listenverständnis als Argument der Methode <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> mit leerem Zeilentrenner.
+        </p>
+        <pre class="brush: python">
+"".join(...)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie sollte also meine endgültige Lösung aussehen?
+    </div>
+    <div class="answer">
+        <p>
+            Sie müssen Ihren Code nur in einen Funktionsausdruck verpacken. Die Verwendung von Typ-Hinweisen für Eingabe- und Ausgabedaten wird dringend empfohlen.
+        </p>
+        <p>Hier ist die gesamte Lösung:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    return "".join((v, v.upper())[i % 2] for i, v in enumerate(text.split("a")))
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Zeigen Sie mir mehr Lösungen!<br />
+        denn ich möchte ein echter 🥇 Python Ninnjaa sein!
+    </div>
+    <div class="answer">
+        <p>Klar, schnapp sie dir!</p>
+        <p>
+            In dieser Lösung iteriert ein Generator über den gegebenen Text und liefert je nach Flag-Wert den Anfangs- oder Großbuchstaben. Der Flaggenwert ändert sich jedes Mal, wenn "a" erfüllt ist.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    def characters():
+
+        caps = False
+        for char in text:
+            if char == 'a':
+                caps = not caps
+            else: 
+                yield char.upper() if caps else char
+
+    return ''.join(characters())
+        </pre>
+        </div>
+        <p>
+            Teilen Sie den Text auf und erhalten Sie eine Liste von Textblöcken. Wandeln Sie jedes zweite Element der Liste in Großbuchstaben um. Fügen Sie alle zusammen.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def caps_lock(text: str) -> str:
+
+    result = text.split("a")
+    
+    for x in range(1, len(result), 2):
+        result[x] = result[x].upper()
+        
+    return "".join(result)
+        </pre>
+        </div>
+        <p>Klicken Sie im Missionsmenü auf <b>Best Solutions</b> und sehen Sie sich viele weitere interessante Lösungen an!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Vielen Dank! Ich weiß und verstehe jetzt mehr! Alles funktioniert bestens!
+    </div>
+    <div class="answer">
+        Freut mich zu hören 👍!
+    </div>
+</div>
+</body>
